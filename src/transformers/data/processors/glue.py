@@ -543,9 +543,9 @@ class BoolQProcessor(DataProcessor):
             if i == 0:
                 continue
             guid = "%s-%s" % (set_type, i)
-            text_a = line[0]
-            text_b = line[1]
-            label = line[3]
+            text_a = line[1]
+            text_b = line[2]
+            label = line[4]
             examples.append(InputExample(guid=guid, text_a=text_a, text_b=text_b, label=label))
         return examples
 
