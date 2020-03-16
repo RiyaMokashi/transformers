@@ -17,7 +17,7 @@
 
 import logging
 import os
-import json
+import jsonlines
 
 from ...file_utils import is_tf_available
 from .utils import DataProcessor, InputExample, InputFeatures
@@ -529,10 +529,10 @@ class BoolQProcessor(DataProcessor):
 
     def get_train_examples(self, data_dir):
         logger.info("LOOKING AT {}".format(os.path.join(data_dir, "train.jsonl")))
-        return self._create_examples(self.json.loads(os.path.join(data_dir, "train.jsonl")), "train")
+        return self._create_examples(self.jsonlines.open(os.path.join(data_dir, "train.jsonl")), "train")
 
     def get_dev_examples(self, data_dir):
-        return self._create_examples(self.json.loads(os.path.join(data_dir, "val.jsonl")), "dev")
+        return self._create_examples(self.jsonlines.open(os.path.join(data_dir, "val.jsonl")), "dev")
 
     def get_labels(self):
         return ["0", "1"]
