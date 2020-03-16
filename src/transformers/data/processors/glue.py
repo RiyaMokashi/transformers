@@ -120,12 +120,12 @@ def glue_convert_examples_to_features(
             len(token_type_ids), max_length
         )
 
-        #if output_mode == "classification":
-            #label = label_map[example.label]
-        #elif output_mode == "regression":
-            #label = float(example.label)
-        #else:
-            #raise KeyError(output_mode)
+        if output_mode == "classification":
+            label = label_map[example.label]
+        elif output_mode == "regression":
+            label = float(example.label)
+        else:
+            raise KeyError(output_mode)
 
         if ex_index < 5:
             logger.info("*** Example ***")
@@ -133,7 +133,7 @@ def glue_convert_examples_to_features(
             logger.info("input_ids: %s" % " ".join([str(x) for x in input_ids]))
             logger.info("attention_mask: %s" % " ".join([str(x) for x in attention_mask]))
             logger.info("token_type_ids: %s" % " ".join([str(x) for x in token_type_ids]))
-            #logger.info("label: %s (id = %d)" % (example.label, label))
+            logger.info("label: %s (id = %d)" % (example.label, label))
 
         features.append(
             InputFeatures(
@@ -548,7 +548,7 @@ class BoolQProcessor(DataProcessor):
             guid = "%s-%s" % (set_type, i)
             text_a = line[0]
             text_b = line[1]
-            label = line[-1]
+            label = int(line[-1] == 'true')
             examples.append(InputExample(guid=guid, text_a=text_a, text_b=text_b, label=label))
         return examples
 
