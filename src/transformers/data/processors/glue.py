@@ -529,10 +529,10 @@ class BoolQProcessor(DataProcessor):
 
     def get_train_examples(self, data_dir):
         logger.info("LOOKING AT {}".format(os.path.join(data_dir, "train.jsonl")))
-        return self._create_examples(jsonlines.open(os.path.join(data_dir, "train.jsonl")), "train")
+        return self._create_examples(self._read_tsv(os.path.join(data_dir, "train.tsv")), "train")
 
     def get_dev_examples(self, data_dir):
-        return self._create_examples(jsonlines.open(os.path.join(data_dir, "val.jsonl")), "dev")
+        return self._create_examples(self._read_tsv(os.path.join(data_dir, "val.tsv")), "dev")
 
     def get_labels(self):
         return ["0", "1"]
@@ -543,9 +543,9 @@ class BoolQProcessor(DataProcessor):
             if i == 0:
                 continue
             guid = "%s-%s" % (set_type, i)
-            text_a = line[1]
-            text_b = line[2]
-            label = line[4]
+            text_a = line[0]
+            text_b = line[1]
+            label = line[-1]
             examples.append(InputExample(guid=guid, text_a=text_a, text_b=text_b, label=label))
         return examples
 
