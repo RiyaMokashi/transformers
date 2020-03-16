@@ -532,10 +532,10 @@ class BoolQProcessor(DataProcessor):
 
     def get_train_examples(self, data_dir):
         logger.info("LOOKING AT {}".format(os.path.join(data_dir, "train.jsonl")))
-        return self._create_examples(self._read_tsv(os.path.join(data_dir, "train.tsv")), "train")
+        return self._create_examples(self.jsonlines.open(os.path.join(data_dir, "train.tsv")), "train")
 
     def get_dev_examples(self, data_dir):
-        return self._create_examples(self._read_tsv(os.path.join(data_dir, "val.tsv")), "dev")
+        return self._create_examples(self.jsonlines.open(os.path.join(data_dir, "val.tsv")), "dev")
 
     def get_labels(self):
         return ["0", "1"]
