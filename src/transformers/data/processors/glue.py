@@ -548,7 +548,7 @@ class BoolQProcessor(DataProcessor):
             guid = "%s-%s" % (set_type, i)
             text_a = line[0]
             text_b = line[1]
-            label = int(line[-1] == 'true')
+            label = str(int(line[-1] == 'true'))
             examples.append(InputExample(guid=guid, text_a=text_a, text_b=text_b, label=label))
         return examples
 
