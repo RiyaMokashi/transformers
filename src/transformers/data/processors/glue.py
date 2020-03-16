@@ -96,7 +96,7 @@ def glue_convert_examples_to_features(
 
         inputs = tokenizer.encode_plus(example.text_a, example.text_b, add_special_tokens=True, max_length=max_length,return_token_type_ids=True)
         input_ids, token_type_ids = inputs["input_ids"], inputs["token_type_ids"]
-        
+
         # The mask has 1 for real tokens and 0 for padding tokens. Only real
         # tokens are attended to.
         attention_mask = [1 if mask_padding_with_zero else 0] * len(input_ids)
@@ -120,12 +120,12 @@ def glue_convert_examples_to_features(
             len(token_type_ids), max_length
         )
 
-        if output_mode == "classification":
-            label = label_map[example.label]
-        elif output_mode == "regression":
-            label = float(example.label)
-        else:
-            raise KeyError(output_mode)
+        #if output_mode == "classification":
+            #label = label_map[example.label]
+        #elif output_mode == "regression":
+            #label = float(example.label)
+        #else:
+            #raise KeyError(output_mode)
 
         if ex_index < 5:
             logger.info("*** Example ***")
