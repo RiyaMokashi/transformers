@@ -91,9 +91,12 @@ def glue_convert_examples_to_features(
         if ex_index % 10000 == 0:
             logger.info("Writing example %d/%d" % (ex_index, len_examples))
 
-        inputs = tokenizer.encode_plus(example.text_a, example.text_b, add_special_tokens=True, max_length=max_length,)
-        input_ids, token_type_ids = inputs["input_ids"], inputs["token_type_ids"]
+        if ex_index % 10000 == 0:
+            logger.info("Writing example %d/%d" % (ex_index, len_examples))
 
+        inputs = tokenizer.encode_plus(example.text_a, example.text_b, add_special_tokens=True, max_length=max_length,return_token_type_ids=True)
+        input_ids, token_type_ids = inputs["input_ids"], inputs["token_type_ids"]
+        
         # The mask has 1 for real tokens and 0 for padding tokens. Only real
         # tokens are attended to.
         attention_mask = [1 if mask_padding_with_zero else 0] * len(input_ids)
