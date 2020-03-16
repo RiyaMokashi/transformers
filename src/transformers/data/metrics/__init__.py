@@ -50,7 +50,7 @@ if _has_sklearn:
             "corr": (pearson_corr + spearman_corr) / 2,
         }
 
-    def glue_compute_metrics(task_name, preds, labels):
+  def glue_compute_metrics(task_name, preds, labels):
         assert len(preds) == len(labels)
         if task_name == "cola":
             return {"mcc": matthews_corrcoef(labels, preds)}
@@ -72,7 +72,7 @@ if _has_sklearn:
             return {"acc": simple_accuracy(preds, labels)}
         elif task_name == "wnli":
             return {"acc": simple_accuracy(preds, labels)}
-        elif task_name == "hans":
+        elif task_name == "boolq":
             return {"acc": simple_accuracy(preds, labels)}
         else:
             raise KeyError(task_name)
